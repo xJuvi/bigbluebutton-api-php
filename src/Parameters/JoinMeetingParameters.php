@@ -39,6 +39,11 @@ class JoinMeetingParameters extends UserDataParameters
      * @var string
      */
     private $password;
+    
+    /**
+     * @var string
+     */
+    private $role;
 
     /**
      * @var string
@@ -79,6 +84,21 @@ class JoinMeetingParameters extends UserDataParameters
      * @var array
      */
     private $customParameters;
+    
+    /**
+     * @var bool
+     */
+    private $guest;
+    
+    /**
+     * @var bool
+     */
+    private $excludeFromDashboard;
+    
+    /**
+     * @var string
+     */
+    private $defaultLayout;
 
     /**
      * JoinMeetingParametersTest constructor.
@@ -87,11 +107,11 @@ class JoinMeetingParameters extends UserDataParameters
      * @param $username
      * @param $password
      */
-    public function __construct($meetingId, $username, $password)
+    public function __construct($meetingId, $username, $role)
     {
         $this->meetingId        = $meetingId;
         $this->username         = $username;
-        $this->password         = $password;
+        $this->password         = $role;
         $this->customParameters = [];
     }
 
@@ -136,6 +156,7 @@ class JoinMeetingParameters extends UserDataParameters
     }
 
     /**
+     * DEPRACTED since BigBlueButton 2.4 - will be removed in a future release
      * @return string
      */
     public function getPassword()
@@ -144,6 +165,7 @@ class JoinMeetingParameters extends UserDataParameters
     }
 
     /**
+     * DEPRACTED since BigBlueButton 2.4 - will be removed in a future release
      * @param string $password
      *
      * @return JoinMeetingParameters
@@ -151,6 +173,26 @@ class JoinMeetingParameters extends UserDataParameters
     public function setPassword($password)
     {
         $this->password = $password;
+
+        return $this;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * @param string $role
+     *
+     * @return JoinMeetingParameters
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
 
         return $this;
     }
@@ -307,6 +349,66 @@ class JoinMeetingParameters extends UserDataParameters
 
         return $this;
     }
+    
+    /**
+     * @return null|bool
+     */
+    public function isGuest()
+    {
+        return $this->guest;
+    }
+
+    /**
+     * @param bool $guest
+     *
+     * @return JoinMeetingParameters
+     */
+    public function setGuest($guest)
+    {
+        $this->guest = $guest;
+
+        return $this;
+    }
+    
+    /**
+     * @return null|bool
+     */
+    public function isExcludeFromDashboard()
+    {
+        return $this->redirect;
+    }
+
+    /**
+     * @param bool $excludeFromDashboard
+     *
+     * @return JoinMeetingParameters
+     */
+    public function setExcludeFromDashboard($excludeFromDashboard)
+    {
+        $this->excludeFromDashboard = $excludeFromDashboard;
+
+        return $this;
+    }
+    
+    /**
+     * @return null|string
+     */
+    public function getDefaultLayout()
+    {
+        return $this->defaultLayout;
+    }
+
+    /**
+     * @param bool $defaultLayout
+     *
+     * @return JoinMeetingParameters
+     */
+    public function setDefaultLayout($defaultLayout)
+    {
+        $this->defaultLayout = $defaultLayout;
+
+        return $this;
+    }
 
     /**
      * @return string
@@ -314,16 +416,20 @@ class JoinMeetingParameters extends UserDataParameters
     public function getHTTPQuery()
     {
         $queries = [
-            'meetingID'    => $this->meetingId,
-            'fullName'     => $this->username,
-            'password'     => $this->password,
-            'userID'       => $this->userId,
-            'webVoiceConf' => $this->webVoiceConf,
-            'createTime'   => $this->creationTime,
-            'configToken'  => $this->configToken,
-            'avatarURL'    => $this->avatarURL,
-            'redirect'     => $this->redirect ? 'true' : 'false',
-            'clientURL'    => $this->clientURL,
+            'meetingID'     => $this->meetingId,
+            'fullName'      => $this->username,
+            'password'      => $this->password,
+            'role'          => $this->role,
+            'userID'        => $this->userId,
+            'webVoiceConf'  => $this->webVoiceConf,
+            'createTime'    => $this->creationTime,
+            'configToken'   => $this->configToken,
+            'avatarURL'     => $this->avatarURL,
+            'redirect'      => $this->redirect ? 'true' : 'false',
+            'clientURL'     => $this->clientURL,
+            'guest'         => $this->guest,
+            'excludeFromDashboard'    => $this->excludeFromDashboard ? 'true' : 'false',
+            'defaultLayout' => $this->defaultLayout,
         ];
 
         foreach ($this->customParameters as $key => $value) {
