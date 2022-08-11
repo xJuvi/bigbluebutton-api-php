@@ -41,9 +41,8 @@ class EndMeetingParameters extends BaseParameters
      * @param $meetingId
      * @param $password
      */
-    public function __construct($meetingId, $password)
+    public function __construct($meetingId)
     {
-        $this->password  = $password;
         $this->meetingId = $meetingId;
     }
 
@@ -68,6 +67,7 @@ class EndMeetingParameters extends BaseParameters
     }
 
     /**
+     * DEPRACTED since BigBlueButton 2.4 - will be removed in a future release
      * @return string
      */
     public function getPassword()
@@ -76,6 +76,7 @@ class EndMeetingParameters extends BaseParameters
     }
 
     /**
+     * DEPRACTED since BigBlueButton 2.4 - will be removed in a future release
      * @param string $password
      *
      * @return EndMeetingParameters
