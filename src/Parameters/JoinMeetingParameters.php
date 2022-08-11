@@ -427,7 +427,7 @@ class JoinMeetingParameters extends UserDataParameters
             'avatarURL'     => $this->avatarURL,
             'redirect'      => $this->redirect ? 'true' : 'false',
             'clientURL'     => $this->clientURL,
-            'guest'         => $this->guest,
+            'guest'         => $this->guest ? 'true' : 'false',
             'excludeFromDashboard'    => $this->excludeFromDashboard ? 'true' : 'false',
             'defaultLayout' => $this->defaultLayout,
         ];
